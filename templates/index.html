@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DASHBOARD</title>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+    <!-- Indian font -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hind', sans-serif;
+        }
+        .col-form-label-lg {
+            background: rgb(230, 229, 229);
+            margin-left: 24%;
+        }
+        .custom-select-lg,
+        .form-control-lg {
+            margin-left: 50%;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 20px;
+            width: 900px;
+            margin-left: 490px;   
+        }
+        .Myjumbotron {
+            width: 90%;
+            margin: 0 auto;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center display-4 my-5 rounded bg-primary text-white">HOTEL CANCELLATION BOOKING DASHBOARD</h1>
+    </div>
+
+    <div class="container rounded">
+        <!-- Navigation -->
+        <ul class="nav nav-pills nav-fill my-4 bg-light rounded">
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link text-dark lead" href="{{ url_for('index')}}">Home</a>
+            </li>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link text-dark lead" href="{{ url_for('visual') }}">Visualization</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Intro Section -->
+    <div class="jumbotron Myjumbotron">
+        <div class="container rounded">
+            <h5 class="display-5">
+                Hello! I’m <strong>Sahil</strong>, a passionate web development student from India. This dashboard is part of my final project, where I applied data science and machine learning to solve a real-world hospitality industry problem.
+            </h5>
+            <p class="lead">
+                The objective of this project is to predict whether a hotel booking will be canceled, helping Indian hotels optimize their operations and reduce revenue loss. The original dataset was based in Portugal, but the insights and model have been adapted to fit the Indian hotel industry scenario.
+            </p>
+        </div>
+    </div>
+
+    <!-- Content Block -->
+    <div class="mt-5">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Analysis Form -->
+    <form method="POST" action="{{ url_for('predict') }}" id="form">
+        <div class="form-group row w-auto">
+            <label class="col-6 col-form-label-lg text-center rounded" for="country">City</label> 
+            <div class="col-6">
+                <select id="country" name="country" required class="custom-select custom-select-lg">
+                    <option value="1">India</option>
+                    <option value="2">Delhi</option>
+                    <option value="3">Mumbai</option>
+                    <option value="4">Bangalore</option>
+                    <option value="5">Kolkata</option>
+                    <option value="6">Hyderabad</option>
+                    <option value="7">Chennai</option>
+                    <option value="8">Pune</option>
+                    <option value="9">Jaipur</option>
+                    <option value="10">Ahmedabad</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="deposit_type" class="col-6 col-form-label-lg text-center rounded">Deposit Type</label> 
+            <div class="col-6">
+                <select id="deposit_type" name="deposit_type" required class="custom-select custom-select-lg">
+                    <option value="0">No Deposit</option>
+                    <option value="1">Non Refund</option>
+                    <option value="2">Refundable</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="lead_time" class="col-6 col-form-label-lg text-center">Lead Time (0 - 600) / Time between booking and check-in</label> 
+            <div class="col-6">
+                <input id="lead_time" name="lead_time" placeholder="0-600" type="text" required class="form-control form-control-lg">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="total_of_special_requests" class="col-6 col-form-label-lg text-center rounded">Total of Special Requests</label> 
+            <div class="col-6">
+                <select id="total_of_special_requests" name="total_of_special_requests" required class="custom-select custom-select-lg">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="adr" class="col-6 col-form-label-lg text-center rounded">Average Daily Rate (₹)</label> 
+            <div class="col-6">
+                <input id="adr" name="adr" placeholder="In INR" type="text" required class="form-control form-control-lg">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="market_segment" class="col-6 col-form-label-lg text-center rounded">Market Segment</label> 
+            <div class="col-6">
+                <select id="market_segment" name="market_segment" required class="custom-select custom-select-lg">
+                    <option value="0">Aviation</option>
+                    <option value="1">Complementary</option>
+                    <option value="2">Corporate</option>
+                    <option value="3">Direct</option>
+                    <option value="4">Groups</option>
+                    <option value="5">Offline TA/TO</option>
+                    <option value="6">Online TA</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="arrival_date_day_of_month" class="col-6 col-form-label-lg text-center rounded">Arrival Day (1 - 31)</label> 
+            <div class="col-6">
+                <input id="arrival_date_day_of_month" name="arrival_date_day_of_month" placeholder="1 - 31" type="text" required class="form-control form-control-lg">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="arrival_date_week_number" class="col-6 col-form-label-lg text-center rounded">Arrival Week Number (1 - 53)</label> 
+            <div class="col-6">
+                <input id="arrival_date_week_number" name="arrival_date_week_number" placeholder="1 - 53" type="text" required class="form-control form-control-lg">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="stays_in_week_nights" class="col-6 col-form-label-lg text-center rounded">Stays During Weeknights (0 - 50)</label> 
+            <div class="col-6">
+                <input id="stays_in_week_nights" name="stays_in_week_nights" placeholder="0 - 50" type="text" required class="form-control form-control-lg">
+            </div>
+        </div>
+
+        <div class="form-group my-auto mx-0">
+            <div class="w-30">
+                <button name="submit" type="submit" class="btn btn-primary btn-lg">Analyze</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking Cancellation Predictor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+</head>
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Hotel Predictor</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/visual">Visualization</a></li>
+                <li class="nav-item"><a class="nav-link" href="/prediksi">Prediction</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="jumbotron jumbotron-fluid text-center bg-primary text-white">
+        <div class="container">
+            <h1 class="display-4">Hotel Booking Cancellation Prediction</h1>
+            <p class="lead">An intelligent system built using machine learning to predict booking cancellations in hotels.</p>
+        </div>
+    </header>
+
+    <!-- About Project Section -->
+    <section class="container my-5">
+        <h2>About This Project</h2>
+        <p>Hello! I'm <strong>Sahil</strong>, a web and data science enthusiast. This dashboard is part of my college project to predict whether a hotel booking will be canceled using machine learning techniques.</p>
+        <p>The model is trained on real-world data from hotel bookings in Portugal and includes smart algorithms like <strong>Gradient Boosting</strong> and techniques such as <strong>SMOTE</strong> to handle data imbalance.</p>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center mb-5">
+        <a href="/prediksi" class="btn btn-success btn-lg">Try the Prediction Tool</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>© 2025 Sahil. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
