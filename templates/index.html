@@ -20,7 +20,58 @@
     <style>
         body {
             font-family: 'Hind', sans-serif;
+            background: linear-gradient(rgba(245, 245, 245, 0.7), rgba(245, 245, 245, 0.7)),
+                        url('../static/images/hotel-bg.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
+
+        .jumbotron {
+            background-color: rgba(232, 234, 246, 0.8);
+            border-left: 5px solid #ffd700;
+            backdrop-filter: blur(2px);
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(2px);
+        }
+        .display-4 {
+            background-color: #1a237e !important; /* Dark Royal Blue */
+        }
+        .nav-pills .nav-link:hover {
+            background-color: #ffd700; /* Gold */
+            color: #1a237e !important;
+        }
+        .card-header {
+            background-color: #1a237e !important; /* Dark Royal Blue */
+        }
+        .btn-primary {
+            background-color: #1a237e !important; /* Dark Royal Blue */
+            border-color: #1a237e !important;
+        }
+        .btn-primary:hover {
+            background-color: #ffd700 !important; /* Gold */
+            border-color: #ffd700 !important;
+            color: #1a237e !important;
+        }
+        .col-form-label-lg {
+            background: #e8eaf6; /* Light Royal Blue */
+            margin-left: 24%;
+        }
+        .jumbotron {
+            background-color: #e8eaf6; /* Light Royal Blue */
+            border-left: 5px solid #ffd700; /* Gold accent */
+        }
+        .form-control:focus, .custom-select:focus {
+            border-color: #ffd700; /* Gold */
+            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+        }
+        .nav-pills .nav-link.active {
+            background-color: #1a237e; /* Dark Royal Blue */
+        }
+    }
         .col-form-label-lg {
             background: rgb(230, 229, 229);
             margin-left: 24%;
@@ -34,6 +85,17 @@
             font-size: 20px;
             width: 900px;
             margin-left: 490px;   
+            background-color: #1a237e;
+            border-color: #1a237e;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #ffd700;
+            border-color: #ffd700;
+            color: #1a237e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         .Myjumbotron {
             width: 90%;
@@ -44,7 +106,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <h1 class="text-center display-4 my-5 rounded bg-primary text-white">HOTEL CANCELLATION BOOKING DASHBOARD</h1>
+        <h1 class="text-center display-4 my-5 rounded text-white" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Oops!Booked</h1>
     </div>
 
     <div class="container rounded">
@@ -62,10 +124,10 @@
     <!-- Intro Section -->
     <div class="jumbotron Myjumbotron">
         <div class="container rounded">
-            <h5 class="display-5">
-                Hello! I’m <strong>Sahil</strong>, a passionate web development student from India. This dashboard is part of my final project, where I applied data science and machine learning to solve a real-world hospitality industry problem.
+            <h5 class="display-5" style="font-size: 1.9rem; color: #1a237e;">
+                Hello! I'm <strong>Sahil</strong>, a passionate web development student from India. This dashboard is part of my final project, where I applied data science and machine learning to solve a real-world hospitality industry problem.
             </h5>
-            <p class="lead">
+            <p class="lead" style="font-size: 1.1rem; line-height: 1.5;">
                 The objective of this project is to predict whether a hotel booking will be canceled, helping Indian hotels optimize their operations and reduce revenue loss. The original dataset was based in Portugal, but the insights and model have been adapted to fit the Indian hotel industry scenario.
             </p>
         </div>
@@ -73,7 +135,87 @@
 
     <!-- Content Block -->
     <div class="mt-5">
+        {% extends "base.html" %}
+
         {% block content %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Booking Cancellation Prediction</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/prediksi" method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Country</label>
+                                    <select name="country" class="form-select" required>
+                                        <option value="1">Domestic</option>
+                                        <option value="2">International</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Deposit Type</label>
+                                    <select name="deposit_type" class="form-select" required>
+                                        <option value="0">No Deposit</option>
+                                        <option value="1">Refundable</option>
+                                        <option value="2">Non-Refundable</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Lead Time (days)</label>
+                                    <input type="number" name="lead_time" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Special Requests</label>
+                                    <input type="number" name="total_of_special_requests" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Average Daily Rate</label>
+                                    <input type="number" step="0.01" name="adr" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Market Segment</label>
+                                    <select name="market_segment" class="form-select" required>
+                                        <option value="1">Direct</option>
+                                        <option value="2">Corporate</option>
+                                        <option value="3">Online TA</option>
+                                        <option value="4">Offline TA</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Arrival Day</label>
+                                    <input type="number" name="arrival_date_day_of_month" min="1" max="31" class="form-control" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Week Number</label>
+                                    <input type="number" name="arrival_date_week_number" min="1" max="53" class="form-control" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Week Nights</label>
+                                    <input type="number" name="stays_in_week_nights" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="d-flex justify-content-center w-100 mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg">Predict Cancellation</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endblock %}
     </div>
 

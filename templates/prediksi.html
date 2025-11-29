@@ -1,20 +1,53 @@
-{% extends 'index.html' %}
+{% extends "base.html" %}
 
 {% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">Prediction Result</h3>
+            </div>
+            <div class="card-body">
+                <div class="prediction-result">
+                    <h4>Booking Cancellation Prediction:</h4>
+                    <h2 class="mt-3">{{ prediction }}</h2>
+                </div>
+                
+                <div class="mt-4">
+                    <h5>Booking Details:</h5>
+                    <table class="table table-striped">
+                        <tr>
+                            <td>Country:</td>
+                            <td>{{ "International" if country == "2" else "Domestic" }}</td>
+                        </tr>
+                        <tr>
+                            <td>Deposit Type:</td>
+                            <td>
+                                {% if deposit_type == "0" %}No Deposit
+                                {% elif deposit_type == "1" %}Refundable
+                                {% else %}Non-Refundable{% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lead Time:</td>
+                            <td>{{ lead_time }} days</td>
+                        </tr>
+                        <tr>
+                            <td>Special Requests:</td>
+                            <td>{{ total_of_special_requests }}</td>
+                        </tr>
+                        <tr>
+                            <td>Average Daily Rate:</td>
+                            <td>${{ adr }}</td>
+                        </tr>
+                    </table>
+                </div>
 
-    <div class="jumbotron">
-        <h2 class="display-5">Analysis Result: {{prediction}}</h2>
-        <p class="lead"></p>
-        <hr class="my-4">
-        <p><b>Country: </b> {{country}}<br>
-            <b>Deposit Type: </b> {{deposit_type}}<br>
-            <b>Lead Time: </b> {{lead_time}}<br>
-            <b>Total of Special Request: </b> {{total_of_special_requests}}<br>
-            <b>Average daily Rate: </b> {{adr}}<br>
-            <b>Market Segment: </b> {{market_segment}}<br>
-            <b>Arrival Date Day of Month / Tanggal Kedatangan: </b> {{arrival_date_day_of_month}}<br>
-            <b>Arrival Date Week Number / Minggu Kebarapa Saat Kedatangan (1 tahun : 53 minggu): </b> {{arrival_date_week_number}}<br>
-            <b>Stays In Week Nights / Jumlah hari menginap saat weekday: </b> {{stays_in_week_nights}}<br></p>
-      </div>
-
-{% endblock content %}
+                <div class="text-center mt-4">
+                    <a href="/" class="btn btn-primary">Make Another Prediction</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

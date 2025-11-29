@@ -1,0 +1,44 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border: none;
+    margin-bottom: 30px;
+}
+
+.card-header {
+    border-bottom: none;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.btn-primary {
+    padding: 10px 30px;
+    font-weight: 500;
+    display: block;
+    margin: 20px auto;  /* This centers the button */
+    min-width: 200px;   /* Gives the button a minimum width */
+}
+
+.text-center {
+    text-align: center;
+    width: 100%;        /* Ensures full width */
+    margin-top: 20px;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.prediction-result {
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+    background-color: #e9ecef;
+}
